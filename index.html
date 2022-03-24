@@ -85,6 +85,7 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-trash"><a href="/trash/" rel="section">Trash</a></li>
   </ul>
 </nav>
 
@@ -289,9 +290,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-03-20 11:49:39 / 修改时间：17:26:28" itemprop="dateCreated datePublished" datetime="2022-03-20T11:49:39+08:00">2022-03-20</time>
+      <time title="创建时间：2022-03-20 11:49:39" itemprop="dateCreated datePublished" datetime="2022-03-20T11:49:39+08:00">2022-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-24 22:58:26" itemprop="dateModified" datetime="2022-03-24T22:58:26+08:00">2022-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -343,8 +350,12 @@
 <div class="note default"><p>了解游戏引擎是制作游戏的第一步，熟悉工具的开发者才能更好的表达出自己的想法。 </p>
 </div>
 
+<p>上面这么多，大多数都是来自书上的定义，从本质上去理解，引擎本是用来驱动物体运转的动力源，对游戏软件来说，驱动游戏运行的除了必要的硬件之外，最重要的其实就是一个循环。最初，这个循环十分简单，在循环里我们尝试变更画面，变更数据，接着我们着手尝试渲染精美的画面，塞入更多丰富精彩的内容。这个十分重要的Game Loop ，驱动着整个游戏的循环，游戏引擎就是驱动这个循环不停不出错的运转下去的设备。</p>
+<p>所以游戏引擎就是一个让我们自定义这个Game Loop的工具， 通过游戏引擎，我们可以丰富游戏循环，自定义渲染管线……</p>
+<p>如果你曾不用引擎写过简单的游戏，就更能理解这个Game Loop：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(application.isRun)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//游戏内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
+<p>很多语言教材的入门书籍都会给一个简单的游戏例子，当然如果你自己写过渲染器之类的程序，也会有类似的结果，一般称为渲染循环，道理和游戏循环是一样的。</p>
 
       
     </div>
