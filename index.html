@@ -128,7 +128,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -236,6 +236,95 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Introduction-of-the-Website"><a href="#Introduction-of-the-Website" class="headerlink" title="Introduction of the Website"></a>Introduction of the Website</h1><p>this website is made to share some Game Tech include shaders, algorithm …</p>
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/qVKJ74"><img src="https://s1.ax1x.com/2022/03/19/qVKJ74.png" alt="qVKJ74.png"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://givememartin.github.io/2022/04/24/%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7%E7%90%86%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="YuLu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YuLu's Website">
+      <meta itemprop="description" content="Make Fun & Make Game">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | YuLu's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/24/%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7%E7%90%86%E8%AE%BA/" class="post-title-link" itemprop="url">全局光照理论</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-24 14:32:37 / 修改时间：14:32:55" itemprop="dateCreated datePublished" datetime="2022-04-24T14:32:37+08:00">2022-04-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="全局光照"><a href="#全局光照" class="headerlink" title="全局光照"></a>全局光照</h1><h2 id="辐射量"><a href="#辐射量" class="headerlink" title="辐射量"></a>辐射量</h2><h3 id="辐射功率或辐射通量"><a href="#辐射功率或辐射通量" class="headerlink" title="辐射功率或辐射通量"></a>辐射功率或辐射通量</h3><p>​        基本辐射量是辐射功率 (Radiant Power) ，也称辐射通量 (Radiant Flux，符号为F)</p>
+<p>​        辐射功率通常表示为 $\Phi$ ,单位为瓦(W)，1W &#x3D; 1 J&#x2F;s</p>
+<h3 id="辐射通量密度"><a href="#辐射通量密度" class="headerlink" title="辐射通量密度"></a>辐射通量密度</h3><p>​        <strong>辐射通量密度</strong></p>
+<blockquote>
+<p><strong>辐射照度</strong> （Irradiance &#x2F; I）没单位表面积上表面的入射辐射功率<br>$$<br>E &#x3D; \frac{d\Phi}{dA}<br>$$</p>
+<p><strong>辐射出射度</strong> (Radiant Exitance &#x2F; M) 物体发出的辐射<br>$$<br>M &#x3D; B &#x3D; \frac{d\Phi}{dA}<br>$$</p>
+</blockquote>
+<h3 id="辐射亮度"><a href="#辐射亮度" class="headerlink" title="辐射亮度"></a>辐射亮度</h3><p>辐射量度(radiance，L)辐射源在某一方向，每单位投影面积，每单位立体角内的辐射通量<br>$$<br>L &#x3D; \frac{d^2\Phi}{d\omega dA^\perp} &#x3D;\frac{d^2\Phi}{d\omega dAcos \theta}<br>$$</p>
+<h3 id="传输理论"><a href="#传输理论" class="headerlink" title="传输理论"></a>传输理论</h3><p>假设给出光粒子密度p(x)，则光粒子在一个很小体积dV中的粒子数为$p(x)dV$，假设光粒子速度为c，光粒子流过表面积dA的粒子数量为$p(x)cdtdA$，若粒子流与dA之间有$\theta$的角度，则通过该表面的粒子数量为 $p(x)cdtdAcos\theta$，<br>$$<br>N &#x3D; p(x,\omega,\lambda)cdtdAcos\theta d\omega d\lambda\<br>\Phi \propto p(x,\omega,\lambda)dAcos\theta d\omega d\lambda\<br>\frac{\Phi}{dAcons\theta d\omega} \propto p(x,\omega,\lambda)d\lambda<br>$$<br>其中$d\omega$是粒子流动的不同方向，密度函数p随位置和方向而发生变化，假设粒子都为光子，有$E &#x3D; hv,\lambda &#x3D; \frac{c}{v},E&#x3D;\frac{hc}{\lambda}$ </p>
+<p>则辐射亮度定义为每单位体积的辐射能量<br>$$<br>L(x,\omega)&#x3D;∫p(x,\omega,\lambda)h\frac{c}{\lambda}d\lambda<br>$$</p>
+<h3 id="辐射亮度的属性"><a href="#辐射亮度的属性" class="headerlink" title="辐射亮度的属性"></a>辐射亮度的属性</h3><ol>
+<li>辐射亮度沿直线路径不变 （无介质情况下不随距离衰减）</li>
+<li>传感器对辐射亮度敏感</li>
+</ol>
+<h1 id="发光"><a href="#发光" class="headerlink" title="发光"></a>发光</h1><h2 id="双向反射分布函数（BRDF）"><a href="#双向反射分布函数（BRDF）" class="headerlink" title="双向反射分布函数（BRDF）"></a>双向反射分布函数（BRDF）</h2><p>最一般的情况，光点在点p和入射方向$\Psi$处进入表面，并在其他点q和出射方向$\Theta$处离开表明。定义这种入射和反射之间关系的函数称为表面散射反射分布函数(BSSRDF)</p>
+<p>点x处点BRDF定义为在出射方向上反射的想对辐射亮度与通过不同立体角入射点相对辐射照度之比<br>$$<br>f_r(x,\Psi\rightarrow \Theta)&#x3D;\frac{dL(x\rightarrow\Theta)}{dE(x\leftarrow\Psi)}\<br>&#x3D;\frac{dL(x\rightarrow\Theta)}{L(x\leftarrow\Psi)cos(N_x,\Psi)d\omega_\Psi}<br>$$</p>
+<h3 id="双向反射分布函数的属性"><a href="#双向反射分布函数的属性" class="headerlink" title="双向反射分布函数的属性"></a>双向反射分布函数的属性</h3><ol>
+<li>范围：取任何正值，可以随波长变化</li>
+<li>维度：BRDF是在每个点上定义的四维函数，两个维度对于入射方向，两个维度对应出射方向</li>
+</ol>
 
       
     </div>
