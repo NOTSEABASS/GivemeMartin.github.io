@@ -20,22 +20,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"givememartin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="游戏引擎概述介绍游戏的制作一般是通过游戏引擎完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部分商业引">
+    <meta name="description" content="游戏引擎概述 介绍 游戏的制作一般是通过游戏引擎完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部">
 <meta property="og:type" content="article">
 <meta property="og:title" content="游戏引擎概述">
 <meta property="og:url" content="https://givememartin.github.io/2022/03/20/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/index.html">
 <meta property="og:site_name" content="YuLu&#39;s Website">
-<meta property="og:description" content="游戏引擎概述介绍游戏的制作一般是通过游戏引擎完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部分商业引">
+<meta property="og:description" content="游戏引擎概述 介绍 游戏的制作一般是通过游戏引擎完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F1010%2F94a85b99g00r0q67b009ec000rs00fnc.gif&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650340708&t=cdf0a6d31e4de4580a94dc15bdf3ae91">
-<meta property="og:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-885d8dfbc05c865e4aaff56a8bec7418_1200x500.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650340753&t=c561f40bdc80f239f93220245e3eb31b">
-<meta property="og:image" content="https://s1.ax1x.com/2022/03/25/qYUf3T.png">
 <meta property="article:published_time" content="2022-03-20T03:49:39.000Z">
 <meta property="article:modified_time" content="2022-03-25T02:00:29.818Z">
 <meta property="article:author" content="YuLu">
 <meta property="article:tag" content="Game Tech">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F1010%2F94a85b99g00r0q67b009ec000rs00fnc.gif&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650340708&t=cdf0a6d31e4de4580a94dc15bdf3ae91">
 
 
 <link rel="canonical" href="https://givememartin.github.io/2022/03/20/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/">
@@ -243,22 +239,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="游戏引擎概述"><a href="#游戏引擎概述" class="headerlink" title="游戏引擎概述"></a>游戏引擎概述</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>游戏的制作一般是通过<strong>游戏引擎</strong>完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部分商业引擎通用性很好，适合大部分开发者开发自己的游戏</p>
-<hr /> 
-
+        <h1 id="游戏引擎概述">游戏引擎概述</h1>
+<h2 id="介绍">介绍</h2>
+<p>游戏的制作一般是通过<strong>游戏引擎</strong>完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部分商业引擎通用性很好，适合大部分开发者开发自己的游戏</p>
+<hr />
 <blockquote>
-<p>提到游戏引擎，就不得不提起游戏引擎的伟大先驱——John D. Carmack II，<strong>卡马克</strong>，如果不了解游戏引擎的人可能很少听过这个名字，卡马克是id Software的创始人之一，如果你也不知道什么是id Software， 那你一定知道3D游戏鼻祖之一《Doom》，还有《德军总部3D》，这两个作品都出自他之手。卡马克在图形学方面有着卓越的成就，可以说是一名实打实的技术天才，他靠从小自学的程序及数学知识，推广发明了 「自适应贴图刷新」，「二叉空间分割」，「卡马克反转」等技术。可以说卡马克开启了3D游戏引擎的新纪元， 详细的卡马克生平经历可以阅读游戏学圣经<strong>《Doom启示录》</strong>。</p>
+<p>提到游戏引擎，就不得不提起游戏引擎的伟大先驱——John D. Carmack
+II，<strong>卡马克</strong>，如果不了解游戏引擎的人可能很少听过这个名字，卡马克是id
+Software的创始人之一，如果你也不知道什么是id Software，
+那你一定知道3D游戏鼻祖之一《Doom》，还有《德军总部3D》，这两个作品都出自他之手。卡马克在图形学方面有着卓越的成就，可以说是一名实打实的技术天才，他靠从小自学的程序及数学知识，推广发明了
+「自适应贴图刷新」，「二叉空间分割」，「卡马克反转」等技术。可以说卡马克开启了3D游戏引擎的新纪元，
+详细的卡马克生平经历可以阅读游戏学圣经<strong>《Doom启示录》</strong>。</p>
 </blockquote>
-<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F1010%2F94a85b99g00r0q67b009ec000rs00fnc.gif&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650340708&t=cdf0a6d31e4de4580a94dc15bdf3ae91" alt="unity"></p>
-<p><img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-885d8dfbc05c865e4aaff56a8bec7418_1200x500.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650340753&t=c561f40bdc80f239f93220245e3eb31b" alt="unreal"></p>
-<h2 id="功能分类"><a href="#功能分类" class="headerlink" title="功能分类"></a>功能分类</h2><p>游戏引擎的功能很多，一般包含渲染引擎，文件管理，音频系统，动画系统，碰撞物理系统等，根据 <em>游戏引擎架构（Jason Gregory）</em> 书中的分类，一个引擎的<strong>底层系统</strong>有这么几个部分</p>
+<figure>
+<img
+src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F1010%2F94a85b99g00r0q67b009ec000rs00fnc.gif&amp;refer=http%3A%2F%2Fdingyue.ws.126.net&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1650340708&amp;t=cdf0a6d31e4de4580a94dc15bdf3ae91"
+alt="unity" />
+<figcaption aria-hidden="true">unity</figcaption>
+</figure>
+<figure>
+<img
+src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-885d8dfbc05c865e4aaff56a8bec7418_1200x500.jpg&amp;refer=http%3A%2F%2Fpic4.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1650340753&amp;t=c561f40bdc80f239f93220245e3eb31b"
+alt="unreal" />
+<figcaption aria-hidden="true">unreal</figcaption>
+</figure>
+<h2 id="功能分类">功能分类</h2>
+<p>游戏引擎的功能很多，一般包含渲染引擎，文件管理，音频系统，动画系统，碰撞物理系统等，根据
+<em>游戏引擎架构（Jason Gregory）</em>
+书中的分类，一个引擎的<strong>底层系统</strong>有这么几个部分</p>
 <blockquote>
 <ul>
-<li>游戏支持系统：内存管理，字符串，容器，引擎配置…</li>
+<li>游戏支持系统：内存管理，字符串，容器，引擎配置...</li>
 <li>资源及文件系统：文件系统，资源管理器</li>
 <li>游戏循环，实时模拟：渲染循环，游戏循环，多处理器循环，网络多人游戏循环</li>
-<li>人体学接口设备： 输入处理，输出处理…</li>
-<li>调试开发工具：日志，绘图，游戏内置菜单，主控台，游戏暂停，摄像机调用，截图，作弊…</li>
+<li>人体学接口设备： 输入处理，输出处理...</li>
+<li>调试开发工具：日志，绘图，游戏内置菜单，主控台，游戏暂停，摄像机调用，截图，作弊...</li>
 </ul>
 </blockquote>
 <p>其次就是图像，运动，声音部分</p>
@@ -270,27 +285,33 @@
 <li>音频：信号处理，声音技术，三维音频，音频引擎架构</li>
 </ul>
 </blockquote>
-<div class="note default"><p>了解游戏引擎是制作游戏的第一步，熟悉工具的开发者才能更好的表达出自己的想法。 </p>
+<div class="note default"><p>了解游戏引擎是制作游戏的第一步，熟悉工具的开发者才能更好的表达出自己的想法。</p>
 </div>
-
-<p>上面这么多，大多数都是来自书上的定义，从本质上去理解，引擎本是用来驱动物体运转的动力源，对游戏软件来说，驱动游戏运行的除了必要的硬件之外，最重要的其实就是一个循环。最初，这个循环十分简单，在循环里我们尝试变更画面，变更数据，接着我们着手尝试渲染精美的画面，塞入更多丰富精彩的内容。这个十分重要的Game Loop ，驱动着整个游戏的循环，游戏引擎就是驱动这个循环不停不出错的运转下去的设备。</p>
-<p>所以游戏引擎就是一个让我们自定义这个Game Loop的工具， 通过游戏引擎，我们可以丰富游戏循环，自定义渲染管线……</p>
-<p>如果你曾在不使用引擎的情况下写过简单的游戏，就更能理解这个Game Loop：</p>
+<p>上面这么多，大多数都是来自书上的定义，从本质上去理解，引擎本是用来驱动物体运转的动力源，对游戏软件来说，驱动游戏运行的除了必要的硬件之外，最重要的其实就是一个循环。最初，这个循环十分简单，在循环里我们尝试变更画面，变更数据，接着我们着手尝试渲染精美的画面，塞入更多丰富精彩的内容。这个十分重要的Game
+Loop
+，驱动着整个游戏的循环，游戏引擎就是驱动这个循环不停不出错的运转下去的设备。</p>
+<p>所以游戏引擎就是一个让我们自定义这个Game Loop的工具，
+通过游戏引擎，我们可以丰富游戏循环，自定义渲染管线......</p>
+<p>如果你曾在不使用引擎的情况下写过简单的游戏，就更能理解这个Game
+Loop：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(application.isRun)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//游戏内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>很多语言教材的入门书籍都会给一个简单的游戏例子，当然如果你自己写过渲染器之类的程序，也会有类似的结果，一般称为渲染循环，道理和游戏循环是一样的。</p>
-<p>在不同的引擎里，我们都会对整体的循环进行一定的改动。以Unity为例，Unity在新建Mono Bebaviour的时候，会默认创建两个函数</p>
+<p>在不同的引擎里，我们都会对整体的循环进行一定的改动。以Unity为例，Unity在新建Mono
+Bebaviour的时候，会默认创建两个函数</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中的Update 就是我们在游戏循环中可以修改的地方，每一个MonoBehaviour都会执行这个Update循环里的函数，</p>
+<p>其中的Update
+就是我们在游戏循环中可以修改的地方，每一个MonoBehaviour都会执行这个Update循环里的函数，</p>
 <p>除了Update外，Unity还定义了其他几种循环函数，区分的方式是每两次循环之间的间隔</p>
-<p>比如<code>Update()</code>是根据平台帧率去执行的， <code>FixedUpdate()</code> 是每隔固定时间循环一次</p>
+<p>比如<code>Update()</code>是根据平台帧率去执行的，
+<code>FixedUpdate()</code> 是每隔固定时间循环一次</p>
 <blockquote>
 <p>官方API解释：</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/qYUf3T"><img src="https://s1.ax1x.com/2022/03/25/qYUf3T.png" alt="qYUf3T.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/qYUf3T"><img
+src="https://s1.ax1x.com/2022/03/25/qYUf3T.png"
+alt="qYUf3T.png" /></a></p>
 </blockquote>
 <p><code>LateUpdate()</code>是在所有Update结束后调用的循环函数，这里就牵扯到函数之间的运行先后关系了，不得不说Unity的架构还是十分合理的。</p>
-<p>游戏引擎的功能十分丰富，一款合格的商业引擎可以帮我们制作几乎所有可能的游戏，无论是VR&#x2F;AR，还是解密，卡牌，甚至大型RPG。使用Unity制作的游戏有元气骑士，空洞骑士，也有炉石传说，王者荣耀，原神…几乎涵盖了所有类型，同理UE制作的PUBG，无主之地……</p>
+<p>游戏引擎的功能十分丰富，一款合格的商业引擎可以帮我们制作几乎所有可能的游戏，无论是VR/AR，还是解密，卡牌，甚至大型RPG。使用Unity制作的游戏有元气骑士，空洞骑士，也有炉石传说，王者荣耀，原神...几乎涵盖了所有类型，同理UE制作的PUBG，无主之地......</p>
 
     </div>
 
@@ -372,6 +393,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
