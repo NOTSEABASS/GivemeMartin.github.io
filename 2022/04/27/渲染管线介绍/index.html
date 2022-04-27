@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/webico-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/webico-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"givememartin.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在游戏引擎中，我们会将一些美术素材，无论是2D的还是3D的，显示在屏幕上，这一流程我们称之为渲染管线。渲染管线分为几个步骤：应用阶段-几何阶段-光栅化阶段-像素处理-合并阶段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渲染管线介绍">
+<meta property="og:url" content="https://givememartin.github.io/2022/04/27/%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="YuLu&#39;s Website">
+<meta property="og:description" content="在游戏引擎中，我们会将一些美术素材，无论是2D的还是3D的，显示在屏幕上，这一流程我们称之为渲染管线。渲染管线分为几个步骤：应用阶段-几何阶段-光栅化阶段-像素处理-合并阶段">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-27T05:07:36.000Z">
+<meta property="article:modified_time" content="2022-04-27T09:07:37.347Z">
+<meta property="article:author" content="YuLu">
+<meta property="article:tag" content="Rendering">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://givememartin.github.io/2022/04/27/%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BB%8B%E7%BB%8D/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://givememartin.github.io/2022/04/27/%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BB%8B%E7%BB%8D/","path":"2022/04/27/渲染管线介绍/","title":"渲染管线介绍"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>渲染管线介绍 | YuLu's Website</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">YuLu's Website</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-trashes"><a href="/Trash/" rel="section">Trashes</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF"><span class="nav-number">1.</span> <span class="nav-text">渲染管线</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E9%98%B6%E6%AE%B5"><span class="nav-number">1.1.</span> <span class="nav-text">应用阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%BD%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.2.</span> <span class="nav-text">几何阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B6%E7%82%B9%E7%9D%80%E8%89%B2%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">顶点着色器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B2%E9%9D%A2%E7%BB%86%E5%88%86%E7%9D%80%E8%89%B2%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">曲面细分着色器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%85%83%E8%A3%85%E9%85%8D"><span class="nav-number">1.2.3.</span> <span class="nav-text">图元装配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A3%81%E5%89%AA"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">裁剪</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%8F%E5%B9%95%E6%98%A0%E5%B0%84"><span class="nav-number">1.2.4.</span> <span class="nav-text">屏幕映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E6%A0%85%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="nav-number">1.3.</span> <span class="nav-text">光栅化阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E9%98%B6%E6%AE%B5blend"><span class="nav-number">1.4.</span> <span class="nav-text">合并阶段(Blend)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#alpha%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">ALPHA测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">深度测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%B5%8B%E8%AF%95"><span class="nav-number">1.4.3.</span> <span class="nav-text">模板测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B7%E5%90%88%E9%98%B6%E6%AE%B5"><span class="nav-number">1.4.4.</span> <span class="nav-text">混合阶段</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">YuLu</p>
+  <div class="site-description" itemprop="description">Make Fun & Make Game</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://givememartin.github.io/2022/04/27/%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="YuLu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YuLu's Website">
+      <meta itemprop="description" content="Make Fun & Make Game">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="渲染管线介绍 | YuLu's Website">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          渲染管线介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-27 13:07:36 / 修改时间：17:07:37" itemprop="dateCreated datePublished" datetime="2022-04-27T13:07:36+08:00">2022-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Game-Tech/" itemprop="url" rel="index"><span itemprop="name">Game Tech</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在游戏引擎中，我们会将一些美术素材，无论是2D的还是3D的，显示在屏幕上，这一流程我们称之为渲染管线。渲染管线分为几个步骤：<strong>应用阶段</strong>-<strong>几何阶段</strong>-<strong>光栅化阶段</strong>-<strong>像素处理</strong>-<strong>合并阶段</strong></p>
+<span id="more"></span>
+<h1 id="渲染管线">渲染管线</h1>
+<h2 id="应用阶段">应用阶段</h2>
+<p>应用阶段的主要任务是把
+顶点数据、shader、贴图、材质球、灯光以及一些设置等等传入GPU的过程，这个过程叫做
+<strong>DrawCall</strong></p>
+<p>Unity <strong>DrawCall</strong> 内部分为 SetPassCall 和
+Batch，SetPassCall的作用是设置渲染管线的上下文，一般每一种Unity里的Material就是一个SetPassCall，</p>
+<p>Batch就是每一次CPU向GPU打包发送顶点数据的批次，当我们优化性能的时候经常会用到（动态）合批，合批就是将拥有两个相同的材质（材质实例也要相同）的物体同时传入GPU进行处理。</p>
+<blockquote>
+<p>合批处理在UGUI中会有一些不同</p>
+<ol type="1">
+<li>先获得一个按Hierarchy的顺序的列表</li>
+<li>计算每个物体的深度。 2.1
+深度从0开始递增。如果世界包围盒Z轴不为0（或isCanvasInjectionIndex），则需独占一个批次，同时独占一个深度。即等于之前所有物体最大深度+1，后一个物体深度需要+1。
+2.2 对一般物体的深度。会判断是否可跟之前的物件共享深度，走接下来的流程。
+2.2.1
+先按格子（默认大小是120，根据包围盒再计算）划分出多个格子。（只是为了加速求交）。
+2.2.2
+计算物体包围相交哪些格子，再跟格子中已有的物体进行包围盒相交判断。如果不相交则使用当前深度；如果相交且可合批，则使用相交物体中最大的深度；如果相交且不可合批，则使用相交物体中最大的深度+1。合批条件：无独占批次+材质相同+贴图相同+裁剪开关和裁剪矩形相同+贴图A8格式一致（kTexFormatAlpha8）
+2.2.3
+将该物体加入所有相交的格子中。若遇到独占深度的物体，则格子数据清空。即后续物件不跟之前的物件共享深度。</li>
+<li>排序：按照深度-&gt;材质-&gt;贴图-&gt;层级顺序优先级排序。</li>
+<li>合批：对排序后的列表，从头开始一个一个检测是否能与前面的物体合批。合批条件：无独占批次（只判断isCanvasInjectionIndex）+材质相同+贴图相同+裁剪开关和裁剪矩形相同+贴图A8格式一致（kTexFormatAlpha8），非SubBatch只判断前两个条件，一般情况下UI的材质都一样。</li>
+</ol>
+<hr />
+<p>UGUI批处理原文链接：https://blog.csdn.net/hankangwen/article/details/122667647</p>
+</blockquote>
+<p>在Unity中的shader中会将这些数据存到一些通道里：
+POSITION、NORMAL、COLOR、 TANGENT、TEXCOOR</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">a2v</span> <span class="comment">//application to vertex shader</span></span><br><span class="line">&#123;</span><br><span class="line">    float4 vertex : POSITION;</span><br><span class="line">    float3 normal : NORMAL;</span><br><span class="line">    float4 color : COLOR;</span><br><span class="line">    float4 tangent : TANGENT;</span><br><span class="line">    float4 texcoord : TEXCOORD0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="几何阶段">几何阶段</h2>
+<h3 id="顶点着色器">顶点着色器</h3>
+<p>MVP变换</p>
+<p>Model - View - Projection 对应 $Model SpaceWorld Space  View Space
+$</p>
+<p><strong>Model</strong>
+期间对应的是一个Model矩阵，Model矩阵的作用是实现模型的Transform仿射变换，包括了Translation，Rotation，Scaling(变换的顺序不能变)</p>
+<p>矩阵的乘法是右结合的，以TRS的顺序求结果那么逻辑上就是先缩放再旋转最后平移，因为一旦先进行了平移再缩放就会将平移的距离一并缩放，得到错误结果，旋转同理，先平移再旋转得到的就不是绕原点的旋转结果了。在这个TRS过程中，R和S都是线性变换，但是T不是，意味着T是一种特殊的变换，为了化简这种特殊性，我们引入齐次坐标，将二维的点用三个坐标表示，三维的点用四个坐标表示（下式是一个二维的齐次坐标平移变换过程，详细解释可以参考Games101）
+<span class="math display">\[
+\Large\begin{bmatrix} x&#39; \\ y&#39; \\ w&#39; \end{bmatrix} =
+\begin{bmatrix} 1 &amp; 0 &amp; t_x \\ 0 &amp; 1 &amp; t_y \\ 0 &amp; 0
+&amp; 1 \end{bmatrix}\begin{bmatrix} x \\ y \\ 1 \end{bmatrix} =
+\begin{bmatrix} x+t_x \\ y+t_y \\ 1 \end{bmatrix}
+\]</span> 最后对应的Model Matrix <span class="math display">\[
+Model=T \times R \times\ S =
+\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; t_x \\ 0 &amp; 1 &amp; 0 &amp;
+t_y \\ 0 &amp; 0 &amp; 1 &amp; t_z \\ 0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; cos\theta &amp;
+-sin\theta &amp; 0 \\ 0 &amp; sin\theta &amp; cos\theta &amp; 0 \\ 0
+&amp; 0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix} cos\theta &amp; 0 &amp; sin\theta &amp; 0 \\ 0 &amp; 1
+&amp; 0 &amp; 0 \\ -sin\theta &amp; 0 &amp; cos\theta &amp; 0 \\ 0 &amp;
+0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix} cos\theta &amp; -sin\theta &amp; 0 &amp; 0 \\ sin\theta
+&amp; cos\theta &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp;
+0 &amp; 0 &amp; 1 \end{bmatrix}
+\begin{bmatrix} x &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; y &amp; 0 &amp; 0
+\\ 0 &amp; 0 &amp; z &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end{bmatrix}
+\]</span>
+<strong>View</strong>变换是将世界空间中的坐标变换到摄像机空间，至于为什么会存在一个摄像机空间，是因为与其变换摄像头位置的操作，直接变换世界空间的坐标收益更大，所以我们优先将世界空间的坐标对齐到以摄像机为原点构建的坐标系上</p>
+<p>View变换的原理和Mode矩阵差不多，也是旋转加平移，由于是一个逆变换，所以这里采用的是先平移再旋转，矩阵的表示就为<span
+class="math inline">\(R \times T\)</span></p>
+<p>将一个物体旋转到指定的基向量上也许并不好算，但是将基向量旋转到指定的位置就变得很简单，我们通过写出这个旋转矩阵的逆矩阵，再对这个正交的逆矩阵求逆（正交矩阵的特性：正交矩阵的逆就是原矩阵关于主对角线对称）
+<span class="math display">\[
+\Large R^{-1}_{view} =
+\begin{bmatrix} x_{\hat{g} \times \hat{t}} &amp; x_t &amp; x_{-g}  &amp;
+0 \\
+y_{\hat{g} \times \hat{t}} &amp; y_t &amp; y_{-g} &amp; 0  \\
+z_{\hat{g} \times \hat{t}} &amp;z_t &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\Large R_{view}=
+\begin{bmatrix} x_{\hat{g} \times \hat{t}} &amp; y_{\hat{g} \times
+\hat{t}} &amp; z_{\hat{g} \times \hat{t}}  &amp; 0 \\
+x_t &amp; y_t &amp; z_t &amp; 0  \\
+x_{-g} &amp; y_{-g} &amp; z_{-g} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p><strong>Projection</strong>的过程就有些复杂了</p>
+<p>先从简单的 <strong>正交投影</strong>(Orthographic
+projection)讲，正交投影的过程很简单，讲模型平移到原点为中心，然后挤压入一个正则立方体中（<span
+class="math inline">\((-1,1)^3\)</span>NDC空间） <span
+class="math display">\[
+\Large M_{ortho} = \begin{bmatrix}
+\frac{2}{r-l} &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; \frac{2}{l-b} &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; \frac{2}{n-f} &amp; 0\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp;-\frac{r+l}{2}\\
+0 &amp; 1 &amp; 0 &amp; -\frac{l+b}{2}\\
+0 &amp; 0 &amp; 1 &amp; -\frac{n+f}{2}\\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p>由于-1到1的距离是2，所以缩放过后的物体长宽高也为2，只需要将 <span
+class="math inline">\(物体的坐标 / 物体的长宽高 * 2\)</span>
+就能得到缩放矩阵，平移很简单，移到中心即可</p>
+<p><img
+src="https://img-blog.csdnimg.cn/20210510171649981.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNzU4ODgz,size_16,color_FFFFFF,t_70" /></p>
+<p>再来看 <strong>透视投影</strong>(Perspective projection)</p>
+<p>透视投影这里直接采用将正交矩阵挤压成投影矩阵 <span
+class="math display">\[
+\Large
+M_{persp\rightarrow ortho} =
+\begin{bmatrix}
+n &amp; 0 &amp; 0 &amp; 0\\
+0 &amp; n &amp; 0 &amp; 0\\
+0 &amp; 0 &amp; n+f &amp; -nf\\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{bmatrix}
+\]</span> 所以最后投影矩阵的结果为 <span class="math display">\[
+M_{persp}=M_{perp\rightarrow ortho}\times M_{ortho}
+\]</span></p>
+<h3 id="曲面细分着色器">曲面细分着色器</h3>
+<p>（可选着色器）实现LOD</p>
+<h3 id="图元装配">图元装配</h3>
+<p><span class="math inline">\(View\ Space\rightarrow Clip\ Space
+\rightarrow Screen\ Space\)</span></p>
+<p>图元装配会将顶点装配成指定的图形，与此同时，会进行裁剪、背面剔除等操作，以减少不必要的计算，加速渲染过程。(图元可以理解为三角形)</p>
+<h4 id="裁剪">裁剪</h4>
+<p>进行完MVP变换后，就要针对屏幕大小进行裁剪,还有背面剔除等操作</p>
+<h3 id="屏幕映射">屏幕映射</h3>
+<p>将NDC空间内的顶点映射到屏幕空间</p>
+<h2 id="光栅化阶段">光栅化阶段</h2>
+<p>此过程将组成的三角形映射到片元上，每个片元的信息都是由三个顶点的信息插值得到</p>
+<p>此过程也包括纹理映射和实现光照模型</p>
+<h2 id="合并阶段blend">合并阶段(Blend)</h2>
+<p>合并处理阶段属于屏幕后期处理范围，一般包括Alpha测试，深度测试，模板测试和混合，通过这个阶段可以决定每个片元的可见性</p>
+<h3 id="alpha测试">ALPHA测试</h3>
+<p>通过片元数据，可以获取该片元的alpha值，如果alpha值小于某个数的话，则直接将该片元丢弃，不进行渲染，这是非常“粗暴”的（即只渲染透明度在某一范围内的片元），可以用来做一些树叶镂空的效果。</p>
+<h3 id="深度测试">深度测试</h3>
+<p>近处的物体会遮挡远处的物体，这种效果我们可以通过深度测试来模拟实现。它通过将深度缓存中的值和当前片元的深度进行比较，计算是否需要更新深度缓存和颜色缓存，如果不需要则将该片元丢弃，这与模板测试比较类似。我们在渲染半透明物体时，
+需要开启深度测试而关闭深度写入功能。</p>
+<h3 id="模板测试">模板测试</h3>
+<p>模板测试默认是不开启的，如果开启了模板测试，GPU会首先读取模板缓冲区中该片元位置的模板值，然后将该值和读取到的参考值进行比较，这个比较函数可以是由开发者指定的，例如小于时舍弃该片元，或者大于等于时舍弃该片元。如果这个片元没有通过这个测试，该片元就会被舍弃</p>
+<h3 id="混合阶段">混合阶段</h3>
+<p>对于不透明的物体，可以直接关闭混合操作，片元着色器的值会直接覆盖颜色缓冲区的像素值，对于半透明的物体，会采用混合计算得出新的像素值</p>
+<blockquote>
+<p>透明渲染:</p>
+<p>这种直接读取深度值，从后往前blend的透明渲染模式称为over操作，一般的渲染引擎都是这么处理透明物体的混合的</p>
+<p>除此之外还有一些其他的透明渲染模式，如(OIT,order-independent
+transparency)，OIT主要解决当两个透明的物体有重叠部分时，由于原本是基于物体深度的排序，所以交叠部分会出现渲染错误</p>
+<p>一种常见的OIT方式为<strong>depth peeling</strong></p>
+<ol type="1">
+<li><p>首先先将所有的不透明物体和透明物体的深度写入到第一个z-buffer;</p></li>
+<li><p>渲染所有的不透明物体, 将得到的深度值和第一个z-buffer中的值比较,
+如果两个值相等, 我们就认为这个表面是距离我们最近的透明面,
+这时将得到的RGBA值存入到color buffer中.
+同时我们在第二个z-buffer中写入距离我们第二近的深度值,
+实现peeling的效果.</p></li>
+<li><p>将第二个z-buffer作为输入, 第一个z-buffer作为输出,
+得到的RGBA颜色用<strong>under</strong>的方式和之前的颜色混合.</p></li>
+<li><p>重复前面的步骤, 渲染所有的透明物体后,
+将最终的颜色和不透明表面的颜色混合.</p>
+<p>（原帖:https://zhuanlan.zhihu.com/p/149982810）</p></li>
+</ol>
+<p>此外还有一些简单高效的渲染模式，如 Screen-Door
+Transparency，附上shader</p>
+<p><img
+src="https://pic1.zhimg.com/v2-3879c7dc147999ec54995a88d08d1c70_r.jpg" /></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">Shader <span class="string">&quot;Ocias/Diffuse (Stipple Transparency)&quot;</span> &#123;</span><br><span class="line">Properties &#123;</span><br><span class="line">    _MainTex (<span class="string">&quot;Base (RGB)&quot;</span>, <span class="number">2</span>D) = <span class="string">&quot;white&quot;</span> &#123;&#125;</span><br><span class="line">    _Transparency (<span class="string">&quot;Transparency&quot;</span>, <span class="built_in">Range</span>(<span class="number">0</span>,<span class="number">1</span>)) = <span class="number">1.0</span></span><br><span class="line">&#125;</span><br><span class="line">SubShader &#123;</span><br><span class="line">    Tags &#123; <span class="string">&quot;RenderType&quot;</span>=<span class="string">&quot;Opaque&quot;</span> &#125;</span><br><span class="line">    LOD <span class="number">150</span></span><br><span class="line"></span><br><span class="line">CGPROGRAM</span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> surface surf Lambert noforwardadd</span></span><br><span class="line"></span><br><span class="line">sampler2D _MainTex;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Input</span> &#123;</span><br><span class="line">    float2 uv_MainTex;</span><br><span class="line">    float4 screenPos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">half _Transparency;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">surf</span> <span class="params">(Input IN, inout SurfaceOutput o)</span> </span>&#123;</span><br><span class="line">    fixed4 c = <span class="built_in">tex2D</span>(_MainTex, IN.uv_MainTex);</span><br><span class="line">    o.Albedo = c.rgb;</span><br><span class="line">    o.Alpha = c.a;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Screen-door transparency: Discard pixel if below threshold.</span></span><br><span class="line">    float4x4 thresholdMatrix =</span><br><span class="line">    &#123;  <span class="number">1.0</span> / <span class="number">17.0</span>,  <span class="number">2.0</span> / <span class="number">17.0</span>,  <span class="number">3.0</span> / <span class="number">17.0</span>, <span class="number">4.0</span> / <span class="number">17.0</span>,</span><br><span class="line">      <span class="number">8.0</span> / <span class="number">17.0</span>,  <span class="number">7.0</span> / <span class="number">15.0</span>, <span class="number">6.0</span> / <span class="number">17.0</span>,  <span class="number">5.0</span> / <span class="number">17.0</span>,</span><br><span class="line">      <span class="number">9.0</span> / <span class="number">17.0</span>, <span class="number">10.0</span> / <span class="number">15.0</span>,  <span class="number">11.0</span> / <span class="number">17.0</span>, <span class="number">12.0</span> / <span class="number">17.0</span>,</span><br><span class="line">      <span class="number">16.0</span> / <span class="number">17.0</span>,  <span class="number">15.0</span> / <span class="number">13.0</span>, <span class="number">14.0</span> / <span class="number">17.0</span>,  <span class="number">13.0</span> / <span class="number">17.0</span></span><br><span class="line">    &#125;;</span><br><span class="line">    float4x4 _RowAccess = &#123; <span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>, <span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span> &#125;;</span><br><span class="line">    float2 pos = IN.screenPos.xy / IN.screenPos.w;</span><br><span class="line">    pos *= _ScreenParams.xy; <span class="comment">// pixel position</span></span><br><span class="line">    <span class="built_in">clip</span>(_Transparency - thresholdMatrix[<span class="built_in">fmod</span>(pos.x, <span class="number">4</span>)] * _RowAccess[<span class="built_in">fmod</span>(pos.y, <span class="number">4</span>)]);</span><br><span class="line">&#125;</span><br><span class="line">ENDCG</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fallback <span class="string">&quot;Mobile/VertexLit&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rendering/" rel="tag"># Rendering</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/04/24/%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7%E7%90%86%E8%AE%BA/" rel="prev" title="全局光照理论">
+                  <i class="fa fa-chevron-left"></i> 全局光照理论
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YuLu</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+<div class="powered-by">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">
+        本站访问量<span id="busuanzi_value_site_pv"></span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
