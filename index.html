@@ -302,7 +302,7 @@ alt="qVKJ74.png" /></a></p>
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-26 21:00:32" itemprop="dateModified" datetime="2022-04-26T21:00:32+08:00">2022-04-26</time>
+      <time title="修改时间：2022-04-27 13:04:44" itemprop="dateModified" datetime="2022-04-27T13:04:44+08:00">2022-04-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -331,148 +331,14 @@ alt="qVKJ74.png" /></a></p>
 Flux，符号为F)</p>
 <p>​ 辐射功率通常表示为 <span class="math inline">\(\Phi\)</span>
 ,单位为瓦(W)，1W = 1 J/s</p>
-<h3 id="辐射通量密度">辐射通量密度</h3>
-<p>​ <strong>辐射通量密度</strong></p>
-<blockquote>
-<p><strong>辐射照度</strong> （Irradiance /
-I）没单位表面积上表面的入射辐射功率 <span class="math display">\[
-E = \frac{d\Phi}{dA}
-\]</span></p>
-<p><strong>辐射出射度</strong> (Radiant Exitance / M) 物体发出的辐射
-<span class="math display">\[
-M = B = \frac{d\Phi}{dA}
-\]</span></p>
-</blockquote>
-<h3 id="辐射亮度">辐射亮度</h3>
-<p>辐射量度(radiance，L)辐射源在某一方向，每单位投影面积，每单位立体角内的辐射通量
-<span class="math display">\[
-L = \frac{d^2\Phi}{d\omega dA^\perp} =\frac{d^2\Phi}{d\omega dAcos
-\theta}
-\]</span></p>
-<p><img
-src="https://learnopengl-cn.github.io/img/07/01/radiance.png" /></p>
-<h3 id="传输理论">传输理论</h3>
-<p>假设给出光粒子密度p(x)，则光粒子在一个很小体积dV中的粒子数为<span
-class="math inline">\(p(x)dV\)</span>，假设光粒子速度为c，光粒子流过表面积dA的粒子数量为<span
-class="math inline">\(p(x)cdtdA\)</span>，若粒子流与dA之间有<span
-class="math inline">\(\theta\)</span>的角度，则通过该表面的粒子数量为
-<span class="math inline">\(p(x)cdtdAcos\theta\)</span>， <span
-class="math display">\[
-N = p(x,\omega,\lambda)cdtdAcos\theta d\omega d\lambda\\
-\]</span> <span class="math display">\[
-\Phi \propto p(x,\omega,\lambda)dAcos\theta d\omega d\lambda\\
-\]</span></p>
-<p><span class="math display">\[
-\frac{\Phi}{dAcons\theta d\omega} \propto p(x,\omega,\lambda)d\lambda
-\]</span></p>
-<p>其中<span
-class="math inline">\(d\omega\)</span>是粒子流动的不同方向，密度函数p随位置和方向而发生变化，假设粒子都为光子，有<span
-class="math inline">\(E = hv,\lambda =
-\frac{c}{v},E=\frac{hc}{\lambda}\)</span></p>
-<p>则辐射亮度定义为每单位体积的辐射能量 <span class="math display">\[
-L(x,\omega)=∫p(x,\omega,\lambda)h\frac{c}{\lambda}d\lambda
-\]</span></p>
-<h3 id="辐射亮度的属性">辐射亮度的属性</h3>
-<ol type="1">
-<li>辐射亮度沿直线路径不变 （无介质情况下不随距离衰减）</li>
-<li>传感器对辐射亮度敏感</li>
-</ol>
-<h1 id="发光">发光</h1>
-<h2 id="双向反射分布函数brdf">双向反射分布函数（BRDF）</h2>
-<p>最一般的情况，光点在点p和入射方向<span
-class="math inline">\(\Psi\)</span>处进入表面，并在其他点q和出射方向<span
-class="math inline">\(\Theta\)</span>处离开表明。定义这种入射和反射之间关系的函数称为表面散射反射分布函数(BSSRDF)</p>
-<p>点x处点BRDF定义为在出射方向上反射的相对辐射亮度与通过不同立体角入射点相对辐射照度之比
-<span class="math display">\[
-f_r(x,\Psi\rightarrow
-\Theta)=\frac{dL(x\rightarrow\Theta)}{dE(x\leftarrow\Psi)}\\
-=\frac{dL(x\rightarrow\Theta)}{L(x\leftarrow\Psi)cos(N_x,\Psi)d\omega_\Psi}
-\]</span></p>
-<h3 id="双向反射分布函数的属性">双向反射分布函数的属性</h3>
-<ol type="1">
-<li><strong>范围</strong>：取任何正值，可以随波长变化</li>
-<li><strong>维度</strong>：BRDF是在每个点上定义的四维函数，两个维度对于入射方向，两个维度对应出射方向</li>
-<li><strong>互反律</strong>：若光的入射和初涉方向互换，则双向反射分布函数的值保持不变（Helllmholtz
-Reciprocity）</li>
-<li><strong>入射和反射亮度之间的关系</strong>：特定入射方向的BRDF不依赖于沿其他入射角可能存在辐照度</li>
-<li><strong>能量守恒</strong>：所有方向反收割的总功率必须小于或等于入射到表面的总功率</li>
-</ol>
-<p>兰伯特光照模型 <span class="math display">\[
-max(\vec{normalDir} \cdot \vec{lightDir},0) \times Diffuse Color
-\]</span> <img
-src="https://pic2.zhimg.com/80/v2-5ca1f4829ed5f06462af028676f9c9b9_1440w.jpg" /></p>
-<p><strong>反射率方程</strong></p>
-<p>某点的初设方向上的总出射辐射亮度是反射的辐射亮度和在该方向上该表面点出的反射的辐射亮度的总和，即<span
-class="math inline">\(L(x\rightarrow\Theta)=L_e(x\rightarrow\Theta)+L_r(x\rightarrow\Theta)\)</span>
-<span class="math display">\[
-f_r(x,\Psi \rightarrow
-\Theta)=\frac{dL_r(x\rightarrow\Theta)}{dE(x\leftarrow \Psi)}
-\]</span></p>
-<p><span class="math display">\[
-L_r(x \rightarrow \Theta) = ∫f_r(x,\Psi \rightarrow\Theta)L(x \leftarrow
-\Psi)cos(N_x,\Psi)d\omega_\Psi
-\]</span></p>
-<p><span class="math display">\[
-L(x \rightarrow \Theta) =L_e(x \rightarrow \Theta)+ ∫_{\Omega_x}
-f_r(x,\Psi \rightarrow\Theta)L(x \leftarrow
-\Psi)cos(N_x,\Psi)d\omega_\Psi
-\]</span></p>
-<p>下式来源于LearnOpenGL： <span class="math display">\[
-L_o(p,ω_o)=∫_Ωf_r(p,ωi,ωo)L_i(p,ωi)n⋅ω_idω_i
-\]</span>
-Blinn-Phong模型不能满足能量守恒定律，也不满足亥姆霍兹互反律，所以出现了一些基于物理显示的模型，如Cook-Torracne
-模型，该模型包含漫反射和镜面反射两部分 <span class="math display">\[
-fr=k_df_{lambert}+k_sf_{cook−torrance}
-\]</span> 其中，漫反射 <span
-class="math inline">\(f_{lambert}=\frac{c}{\pi}\)</span></p>
-<p>BRDF的非漫反射（镜面反射）组件中的3项是：菲涅尔反射率F，为平面分布D和集合阴影项G
-<span class="math display">\[
-f_{cook−torrance}=\frac{DFG}{4(\Psi⋅N)(\Theta⋅N)}
-\]</span> 根据上述子式，可以将反射率方程展开为 <span
-class="math display">\[
-L_o=∫_\Omega f_r L_icos\theta_id\omega_i=∫_\Omega
-(kd\frac{c}{\pi}+k_s\frac{DFG}{4cos\theta_icos\theta_o})
-L_icos\theta_id\omega_i
-\]</span> 接下来我们在对DFG三种函数分别讨论</p>
-<h3 id="法线分布函数d">法线分布函数（D）</h3>
-<p><strong>NDF</strong>(分布函数D)指定了材质的微平面的分布，一下是两种常用分布函数</p>
-<p>从统计学上近似的表示了与某些（中间）向量hh取向一致的微平面的比率。举例来说，假设给定向量h，如果我们的微平面中有35%与向量h取向一致，则法线分布函数或者说NDF将会返回0.35。目前有很多种NDF都可以从统计学上来估算微平面的总体取向度</p>
-<p>Beckmann分布 <span class="math display">\[
-D(\theta _h)=\frac{1}{m^2cos^4\theta_h}e^{-(\frac{tan\theta_h}{m}})^2
-\]</span> Trowbridge-Reitz GGX <span class="math display">\[
-D(h)=\frac{\alpha ^2}{\pi((n\cdot h)^2(\alpha ^2 -1)+1)^2}
-\]</span></p>
-<p><span class="math inline">\(\alpha\)</span>表示表面粗糙度</p>
-<p>使用GLSL代码编写的Trowbridge-Reitz
-GGX法线分布函数是下面这个样子的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">float</span> <span class="title">D_GGX_TR</span><span class="params">(vec3 N, vec3 H, <span class="type">float</span> a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a2     = a*a;</span><br><span class="line">    <span class="type">float</span> NdotH  = <span class="built_in">max</span>(<span class="built_in">dot</span>(N, H), <span class="number">0.0</span>);</span><br><span class="line">    <span class="type">float</span> NdotH2 = NdotH*NdotH;</span><br><span class="line"></span><br><span class="line">    <span class="type">float</span> nom    = a2;</span><br><span class="line">    <span class="type">float</span> denom  = (NdotH2 * (a2 - <span class="number">1.0</span>) + <span class="number">1.0</span>);</span><br><span class="line">    denom        = PI * denom * denom;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> nom / denom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="菲涅尔方程f">菲涅尔方程(F)</h3>
-<p>Freh-nel方程描述的是被反射的光线对比光线被折射折射的部分所占的比率，这个比率会随着我们观察角度的不同而改变</p>
-<p>简而言之菲涅尔方程的输入是观察角度，返回的是被反射的光线所占的比率。</p>
-<p>根据反射比率，能量守恒，我们可以得出光线被折射的部分和剩余的能量</p>
-<p>由于菲涅尔方程本身是一个十分复杂的方程，所以我们一般使用Fresnel-Schlick近似法求解
-<span class="math display">\[
-F_{Schilick}(h,v,F_0)=F_0+(1-F_0)(1-(h \cdot v))^5
-\]</span>
-F<sub>0</sub>表示平面的基础反射率，利用所谓的折射指数计算得出</p>
-<h3 id="几何阴影项g">几何阴影项(G)</h3>
-<p>几何函数从统计学的角度上近似的求出了微平面之间互相遮蔽的的比率，这种遮蔽会损耗光线的能量</p>
-<p>与NDF类似，几何函数采用一个材料的粗糙度参数作为输入参数，粗糙度较高的表面其微平面间相互遮蔽的概率就越高。我们将要使用的几何函数是GGX与Schlick-Beckmann近似的结合体，因此又称为Schlick-GGX：
-<span class="math display">\[
-G_{SchlickGGX}(n,v,k)=\frac{cos\theta}{cons\theta(1-k)+k}=\frac{n\cdot
-v}{(n \cdot v)(1-k) + k}
-\]</span></p>
-<p><span class="math display">\[
-k=\left\{\begin{array}{**lr**} \frac{(\alpha+1)^2}{8} \  直接光照 &amp;
-\\ \frac{\alpha ^2}{2} \ \ \ \ \ \ \  IBL \end{array} \right.
-\]</span></p>
-<p>为了有效估算几何部分，需要将观察方向和光线方向向量都考虑进去。可以用史密斯法来把两者纳入其中
-<span class="math display">\[
-G(n,v,l,k)=G_{sub}(n,v,k)G_{sub}(n,l,k)
-\]</span></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">float</span> <span class="title">GeometrySchlickGGX</span><span class="params">(<span class="type">float</span> NdotV, <span class="type">float</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> nom   = NdotV;</span><br><span class="line">    <span class="type">float</span> denom = NdotV * (<span class="number">1.0</span> - k) + k;</span><br><span class="line">    <span class="keyword">return</span> nom / denom;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">GeometrySmith</span><span class="params">(vec3 N, vec3 V, vec3 L, <span class="type">float</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> NdotV = <span class="built_in">max</span>(<span class="built_in">dot</span>(N, V), <span class="number">0.0</span>);</span><br><span class="line">    <span class="type">float</span> NdotL = <span class="built_in">max</span>(<span class="built_in">dot</span>(N, L), <span class="number">0.0</span>);</span><br><span class="line">    <span class="type">float</span> ggx1 = <span class="built_in">GeometrySchlickGGX</span>(NdotV, k);</span><br><span class="line">    <span class="type">float</span> ggx2 = <span class="built_in">GeometrySchlickGGX</span>(NdotL, k);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ggx1 * ggx2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="section"></h3>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/24/%E5%85%A8%E5%B1%80%E5%85%89%E7%85%A7%E7%90%86%E8%AE%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -534,7 +400,7 @@ G(n,v,l,k)=G_{sub}(n,v,k)G_{sub}(n,l,k)
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-25 10:00:29" itemprop="dateModified" datetime="2022-03-25T10:00:29+08:00">2022-03-25</time>
+      <time title="修改时间：2022-04-27 13:05:50" itemprop="dateModified" datetime="2022-04-27T13:05:50+08:00">2022-04-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -559,77 +425,14 @@ G(n,v,l,k)=G_{sub}(n,v,k)G_{sub}(n,l,k)
           <h1 id="游戏引擎概述">游戏引擎概述</h1>
 <h2 id="介绍">介绍</h2>
 <p>游戏的制作一般是通过<strong>游戏引擎</strong>完成的，部分大型的游戏企业会通过长时间的技术积累生产出自己的工具链，进而衍生成各自成熟的游戏引擎（DICE的寒霜引擎，Valve的起源引擎等），这些引擎的特点一般是针对自家的产品定制，在某些方面表现较为出色，但通用性可能较差。当然也有专业的游戏引擎企业专门生产通用性强的引擎提供给开发者使用，如常见的Unity3D，Unreal，Cocos等，这部分商业引擎通用性很好，适合大部分开发者开发自己的游戏</p>
-<hr />
-<blockquote>
-<p>提到游戏引擎，就不得不提起游戏引擎的伟大先驱——John D. Carmack
-II，<strong>卡马克</strong>，如果不了解游戏引擎的人可能很少听过这个名字，卡马克是id
-Software的创始人之一，如果你也不知道什么是id Software，
-那你一定知道3D游戏鼻祖之一《Doom》，还有《德军总部3D》，这两个作品都出自他之手。卡马克在图形学方面有着卓越的成就，可以说是一名实打实的技术天才，他靠从小自学的程序及数学知识，推广发明了
-「自适应贴图刷新」，「二叉空间分割」，「卡马克反转」等技术。可以说卡马克开启了3D游戏引擎的新纪元，
-详细的卡马克生平经历可以阅读游戏学圣经<strong>《Doom启示录》</strong>。</p>
-</blockquote>
-<figure>
-<img
-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2021%2F1010%2F94a85b99g00r0q67b009ec000rs00fnc.gif&amp;refer=http%3A%2F%2Fdingyue.ws.126.net&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1650340708&amp;t=cdf0a6d31e4de4580a94dc15bdf3ae91"
-alt="unity" />
-<figcaption aria-hidden="true">unity</figcaption>
-</figure>
-<figure>
-<img
-src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-885d8dfbc05c865e4aaff56a8bec7418_1200x500.jpg&amp;refer=http%3A%2F%2Fpic4.zhimg.com&amp;app=2002&amp;size=f9999,10000&amp;q=a80&amp;n=0&amp;g=0n&amp;fmt=auto?sec=1650340753&amp;t=c561f40bdc80f239f93220245e3eb31b"
-alt="unreal" />
-<figcaption aria-hidden="true">unreal</figcaption>
-</figure>
-<h2 id="功能分类">功能分类</h2>
-<p>游戏引擎的功能很多，一般包含渲染引擎，文件管理，音频系统，动画系统，碰撞物理系统等，根据
-<em>游戏引擎架构（Jason Gregory）</em>
-书中的分类，一个引擎的<strong>底层系统</strong>有这么几个部分</p>
-<blockquote>
-<ul>
-<li>游戏支持系统：内存管理，字符串，容器，引擎配置...</li>
-<li>资源及文件系统：文件系统，资源管理器</li>
-<li>游戏循环，实时模拟：渲染循环，游戏循环，多处理器循环，网络多人游戏循环</li>
-<li>人体学接口设备： 输入处理，输出处理...</li>
-<li>调试开发工具：日志，绘图，游戏内置菜单，主控台，游戏暂停，摄像机调用，截图，作弊...</li>
-</ul>
-</blockquote>
-<p>其次就是图像，运动，声音部分</p>
-<blockquote>
-<ul>
-<li>渲染引擎：光栅化，渲染管线，视效覆盖层</li>
-<li>动画系统：动画类型，骨骼蒙皮，动画混合，后处理，压缩技术，动画系统，状态机，动画控制器</li>
-<li>碰撞及刚体物理学：碰撞组件，碰撞检测，刚体动力学</li>
-<li>音频：信号处理，声音技术，三维音频，音频引擎架构</li>
-</ul>
-</blockquote>
-<div class="note default"><p>了解游戏引擎是制作游戏的第一步，熟悉工具的开发者才能更好的表达出自己的想法。</p>
-</div>
-<p>上面这么多，大多数都是来自书上的定义，从本质上去理解，引擎本是用来驱动物体运转的动力源，对游戏软件来说，驱动游戏运行的除了必要的硬件之外，最重要的其实就是一个循环。最初，这个循环十分简单，在循环里我们尝试变更画面，变更数据，接着我们着手尝试渲染精美的画面，塞入更多丰富精彩的内容。这个十分重要的Game
-Loop
-，驱动着整个游戏的循环，游戏引擎就是驱动这个循环不停不出错的运转下去的设备。</p>
-<p>所以游戏引擎就是一个让我们自定义这个Game Loop的工具，
-通过游戏引擎，我们可以丰富游戏循环，自定义渲染管线......</p>
-<p>如果你曾在不使用引擎的情况下写过简单的游戏，就更能理解这个Game
-Loop：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(application.isRun)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">//游戏内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很多语言教材的入门书籍都会给一个简单的游戏例子，当然如果你自己写过渲染器之类的程序，也会有类似的结果，一般称为渲染循环，道理和游戏循环是一样的。</p>
-<p>在不同的引擎里，我们都会对整体的循环进行一定的改动。以Unity为例，Unity在新建Mono
-Bebaviour的时候，会默认创建两个函数</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Update</span>()</span></span><br><span class="line">	&#123;</span><br><span class="line">	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中的Update
-就是我们在游戏循环中可以修改的地方，每一个MonoBehaviour都会执行这个Update循环里的函数，</p>
-<p>除了Update外，Unity还定义了其他几种循环函数，区分的方式是每两次循环之间的间隔</p>
-<p>比如<code>Update()</code>是根据平台帧率去执行的，
-<code>FixedUpdate()</code> 是每隔固定时间循环一次</p>
-<blockquote>
-<p>官方API解释：</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/qYUf3T"><img
-src="https://s1.ax1x.com/2022/03/25/qYUf3T.png"
-alt="qYUf3T.png" /></a></p>
-</blockquote>
-<p><code>LateUpdate()</code>是在所有Update结束后调用的循环函数，这里就牵扯到函数之间的运行先后关系了，不得不说Unity的架构还是十分合理的。</p>
-<p>游戏引擎的功能十分丰富，一款合格的商业引擎可以帮我们制作几乎所有可能的游戏，无论是VR/AR，还是解密，卡牌，甚至大型RPG。使用Unity制作的游戏有元气骑士，空洞骑士，也有炉石传说，王者荣耀，原神...几乎涵盖了所有类型，同理UE制作的PUBG，无主之地......</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/20/%E6%B8%B8%E6%88%8F%E5%BC%95%E6%93%8E%E6%A6%82%E8%BF%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
